@@ -1,5 +1,6 @@
 // @ts-check
 import { defineConfig, devices } from '@playwright/test';
+import { FILE_PHIEN_ADMIN } from './utils/testData.js';
 
 /**
  * Read environment variables from file.
@@ -59,9 +60,18 @@ export default defineConfig({
 
   /* Configure projects for major browsers */
   projects: [
+    /* Chạy TRƯỚC mọi project khác: đăng nhập Admin 1 lần, lưu phiên ra file.
+       Các project bên dưới khai báo dependencies: ['setup'] nên luôn chờ nó xong. */
+    {
+      name: 'setup',
+      testMatch: /.*\.setup\.js/,
+    },
+
     {
       name: 'chromium',
+      dependencies: ['setup'],
       use: {
+        storageState: FILE_PHIEN_ADMIN,
         /* Không spread devices['Desktop Chrome'] vì preset có deviceScaleFactor,
            mà deviceScaleFactor không dùng chung được với viewport: null */
         browserName: 'chromium',
@@ -79,16 +89,20 @@ export default defineConfig({
 
     {
       name: 'firefox',
+      dependencies: ['setup'],
       use: {
         ...devices['Desktop Firefox'],
+        storageState: FILE_PHIEN_ADMIN,
         viewport: { width: 1920, height: 1080 },
       },
     },
 
     {
       name: 'webkit',
+      dependencies: ['setup'],
       use: {
         ...devices['Desktop Safari'],
+        storageState: FILE_PHIEN_ADMIN,
         viewport: { width: 1920, height: 1080 },
       },
     },

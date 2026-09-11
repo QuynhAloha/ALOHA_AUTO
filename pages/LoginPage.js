@@ -29,4 +29,17 @@ export class LoginPage extends BasePage {
             this.page.locator('.oxd-topbar-header-breadcrumb-module')
         ).toHaveText('Dashboard');
     }
+
+    // Đang đứng ở trang login (chưa đăng nhập / vừa đăng xuất)
+    async kiemTraDangOTrangLogin() {
+        await expect(this.page).toHaveURL(/auth\/login/);
+        await expect(this.page.locator('input[name="username"]')).toBeVisible();
+        await expect(this.page.getByRole('button', { name: 'Login' })).toBeVisible();
+    }
+
+    // Sai username/password -> hộp cảnh báo "Invalid credentials", vẫn ở trang login
+    async kiemTraThongBaoSaiThongTin() {
+        await expect(this.page.locator('.oxd-alert-content-text')).toHaveText('Invalid credentials');
+        await this.kiemTraDangOTrangLogin();
+    }
 }

@@ -35,6 +35,13 @@ export class RecruitmentPage extends BasePage {
 
     // ----- Danh sách Candidates -----
 
+    // Mở thẳng tab Candidates (cần phiên đăng nhập sẵn)
+    async moTrangCandidates() {
+        await this.moTrang('recruitment/viewCandidates');
+        await this.kiemTraDangOTrangCandidates();
+        await expect(this.bangKetQua()).toBeVisible({ timeout: 15000 });
+    }
+
     async kiemTraDangOTrangCandidates() {
         await expect(this.page).toHaveURL(/viewCandidates/);
         await expect(

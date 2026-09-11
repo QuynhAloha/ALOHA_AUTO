@@ -6,6 +6,13 @@ import { BasePage } from './BasePage.js';
  */
 export class VacancyPage extends BasePage {
 
+    // Mở thẳng tab Vacancies (cần phiên đăng nhập sẵn)
+    async moTrangVacancies() {
+        await this.moTrang('recruitment/viewJobVacancy');
+        await this.kiemTraDangOTrangVacancies();
+        await expect(this.bangKetQua()).toBeVisible({ timeout: 15000 });
+    }
+
     async kiemTraDangOTrangVacancies() {
         await expect(this.page).toHaveURL(/viewJobVacancy/);
         await expect(

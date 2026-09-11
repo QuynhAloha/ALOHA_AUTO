@@ -12,6 +12,54 @@ export class BasePage {
         this.page = page;
     }
 
+    // ----- Điều hướng khi đã có phiên đăng nhập -----
+
+    /**
+     * Mở thẳng 1 trang theo đường dẫn (tương đối với baseURL).
+     * Dùng cho test đã nạp phiên đăng nhập sẵn (storageState), khỏi phải
+     * đi qua trang login + menu trái mỗi lần.
+     *
+     * Nếu phiên hết hạn, OrangeHRM tự đá về auth/login -> báo lỗi rõ ràng
+     * thay vì để test timeout ở một bước chẳng liên quan.
+     */
+    async moTrang(duongDan) {
+        await this.page.goto(duongDan, { waitUntil: 'domcontentloaded' });
+
+        if (/auth\/login/.test(this.page.url())) {
+            throw new Error(
+                `Mở "${duongDan}" bị chuyển về trang login: phiên đăng nhập không hợp lệ. ` +
+                'Kiểm tra project "setup" (tests/setup/auth.setup.js) đã chạy thành công chưa.'
+            );
+        }
+        await this.page.waitForURL(`**/${duongDan}`);
+    }
+
+    // Đăng xuất qua menu user ở góc phải thanh trên cùng (có ở mọi trang)
+    async dangXuat() {
+        await this.page.locator('.oxd-userdropdown-tab').click();
+        await this.page.getByRole('menuitem', { name: 'Logout' }).click();
+        await this.page.waitForURL('**/auth/login');
+    }
+
+    // ----- Thông báo lỗi validate -----
+
+    thongBaoLoiTruong() {
+        return this.page.locator('.oxd-input-field-error-message');
+    }
+
+    // Bấm Save/Login khi bỏ trống -> đúng số ô báo "Required"
+    async kiemTraBaoLoiBatBuoc(soLuong) {
+        await expect(this.thongBaoLoiTruong()).toHaveCount(soLuong);
+        await expect(this.thongBaoLoiTruong()).toHaveText(Array(soLuong).fill('Required'));
+    }
+
+    // Lỗi "Required" nằm đúng dưới ô có nhãn này
+    async kiemTraTruongBaoBatBuoc(nhan) {
+        await expect(
+            this.nhomTruong(nhan).locator('.oxd-input-field-error-message')
+        ).toHaveText('Required');
+    }
+
     // Lấy cả cụm "label + ô nhập" theo tên nhãn
     nhomTruong(nhan) {
         return this.page
