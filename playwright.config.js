@@ -29,11 +29,12 @@ export default defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  /* CI: thêm reporter 'list' để log trên GitHub Actions đọc được từng test;
-     local: giữ nguyên report HTML như cũ. */
+  /* CI: log 'list' + sinh report HTML (không mở, vì không có ai xem).
+     Local: in từng test ra terminal, chạy xong TỰ MỞ report HTML
+     (terminal dừng ở đó, bấm Ctrl+C để thoát). */
   reporter: process.env.CI
     ? [['list'], ['html', { open: 'never' }]]
-    : 'html',
+    : [['list'], ['html', { open: 'always' }]],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */

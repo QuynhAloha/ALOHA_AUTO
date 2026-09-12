@@ -2,7 +2,13 @@ import { test } from '@playwright/test';
 
 import { LoginPage } from '../../pages/LoginPage.js';
 import { DashboardPage } from '../../pages/DashboardPage.js';
-import { TAI_KHOAN_ADMIN, PHIEN_TRONG } from '../../utils/testData.js';
+import {
+    TAI_KHOAN_ADMIN,
+    TAI_KHOAN_SAI_MAT_KHAU,
+    TAI_KHOAN_TRONG,
+    SO_TRUONG_BAT_BUOC_LOGIN,
+    PHIEN_TRONG,
+} from '../../utils/testData.js';
 import { dungLai } from '../../utils/quanSat.js';
 
 // File này test chính việc đăng nhập -> KHÔNG dùng phiên lưu sẵn
@@ -30,7 +36,7 @@ test.describe('Login', () => {
     });
 
     test('Sai mật khẩu -> báo "Invalid credentials", vẫn ở trang login', async ({ page }) => {
-        await loginPage.dangNhap(TAI_KHOAN_ADMIN.username, 'sai_mat_khau');
+        await loginPage.dangNhap(TAI_KHOAN_SAI_MAT_KHAU.username, TAI_KHOAN_SAI_MAT_KHAU.password);
 
         await loginPage.kiemTraThongBaoSaiThongTin();
 
@@ -38,9 +44,9 @@ test.describe('Login', () => {
     });
 
     test('Bỏ trống username và password -> 2 ô báo "Required"', async ({ page }) => {
-        await loginPage.dangNhap('', '');
+        await loginPage.dangNhap(TAI_KHOAN_TRONG.username, TAI_KHOAN_TRONG.password);
 
-        await loginPage.kiemTraBaoLoiBatBuoc(2);
+        await loginPage.kiemTraBaoLoiBatBuoc(SO_TRUONG_BAT_BUOC_LOGIN);
         await loginPage.kiemTraDangOTrangLogin();
 
         await dungLai(page, 2);

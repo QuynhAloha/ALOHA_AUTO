@@ -14,6 +14,7 @@ pages/                      Page Objects (BasePage + các page kế thừa)
 tests/
 ├── setup/auth.setup.js     Đăng nhập Admin 1 lần, lưu phiên cho mọi test dùng lại
 ├── auth/                   Login: đúng · sai mật khẩu · bỏ trống · đăng xuất
+├── dashboard/              Dashboard: breadcrumb · menu trái · điều hướng sang module
 ├── admin/                  Admin > Users: search Employee Name / Username / User Role · reset · Add User
 ├── recruitment/
 │   ├── candidates.spec.js  Tạo · search + reset · bỏ trống trường bắt buộc
@@ -23,7 +24,16 @@ utils/                      Test data generator, chế độ quan sát
 docs/                       Tài liệu phạm vi automation
 ```
 
-**Nguyên tắc:** mỗi *tính năng* một file test, mỗi test độc lập và chỉ kiểm 1 mục đích. Flow dài xuyên module chỉ giữ ở `e2e/`.
+**Nguyên tắc:** mỗi Page Object có đúng một file test tương ứng, mỗi test độc lập và chỉ kiểm 1 mục đích. Flow dài xuyên module chỉ giữ ở `e2e/`. Dữ liệu test (tài khoản, danh sách module, dữ liệu sinh tự động) nằm tập trung ở `utils/testData.js`, không hardcode trong file test.
+
+| Page Object | File test |
+|---|---|
+| `LoginPage.js` | `tests/auth/login.spec.js` |
+| `DashboardPage.js` | `tests/dashboard/dashboard.spec.js` |
+| `AdminPage.js` | `tests/admin/users.spec.js` |
+| `RecruitmentPage.js` | `tests/recruitment/candidates.spec.js` |
+| `VacancyPage.js` | `tests/recruitment/vacancies.spec.js` |
+| `BasePage.js` | *(class cha, test gián tiếp qua mọi page con)* |
 
 | Page Object | Vai trò |
 |---|---|
@@ -56,7 +66,8 @@ npx playwright install chromium
 | `npm test` | Toàn bộ, headless, không dừng quan sát (giống CI) |
 | `npm run test:headed` | Toàn bộ, mở trình duyệt |
 | `npm run test:slow` | Toàn bộ, chậm 500ms/thao tác, từng test một |
-| `npm run test:login` | Chỉ Login |
+| `npm run test:auth` hoặc `npm run test:login` | Chỉ Login |
+| `npm run test:dashboard` | Chỉ Dashboard |
 | `npm run test:admin` | Chỉ Admin |
 | `npm run test:candidates` | Chỉ Candidates |
 | `npm run test:vacancies` | Chỉ Vacancies |

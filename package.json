@@ -9,6 +9,8 @@
     "test:headed": "playwright test --project=chromium --headed",
     "test:slow": "SLOWMO=500 playwright test --project=chromium --headed --workers=1",
     "test:login": "playwright test tests/auth --project=chromium --headed",
+    "test:auth": "playwright test tests/auth --project=chromium --headed",
+    "test:dashboard": "playwright test tests/dashboard --project=chromium --headed",
     "test:admin": "playwright test tests/admin --project=chromium --headed",
     "test:candidates": "playwright test tests/recruitment/candidates.spec.js --project=chromium --headed",
     "test:vacancies": "playwright test tests/recruitment/vacancies.spec.js --project=chromium --headed",

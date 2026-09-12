@@ -47,3 +47,36 @@ export const FILE_PHIEN_ADMIN = 'playwright/.auth/admin.json';
 
 // Phiên trống: dùng cho test cần bắt đầu từ trạng thái CHƯA đăng nhập
 export const PHIEN_TRONG = { cookies: [], origins: [] };
+
+// ----- Tài khoản dùng cho các case đăng nhập -----
+
+// Sai mật khẩu -> OrangeHRM báo "Invalid credentials"
+export const TAI_KHOAN_SAI_MAT_KHAU = {
+    username: 'Admin',
+    password: 'sai_mat_khau_123',
+};
+
+// Bỏ trống cả 2 ô -> mỗi ô báo "Required"
+export const TAI_KHOAN_TRONG = {
+    username: '',
+    password: '',
+};
+
+// Số ô báo "Required" khi submit form login trống (username + password)
+export const SO_TRUONG_BAT_BUOC_LOGIN = 2;
+
+// ----- Menu trái -----
+
+// Các module bắt buộc phải có trong menu trái sau khi đăng nhập
+export const CAC_MODULE_MENU_TRAI = [
+    'Admin',
+    'PIM',
+    'Leave',
+    'Time',
+    'Recruitment',
+    'My Info',
+    'Performance',
+    'Dashboard',
+    'Directory',
+    'Maintenance',
+];
