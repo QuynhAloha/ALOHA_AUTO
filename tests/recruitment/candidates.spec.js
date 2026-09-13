@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 import { RecruitmentPage } from '../../pages/RecruitmentPage.js';
-import { taoDuLieuUngVien } from '../../utils/testData.js';
+import { taoDuLieuUngVien, SO_TRUONG_BAT_BUOC_CANDIDATE } from '../data/candidates.data.js';
 import { dungLai } from '../../utils/quanSat.js';
 
 /**
@@ -60,7 +60,7 @@ test.describe('Recruitment - Candidates', () => {
         await recruitmentPage.bamNutLuu();
 
         // First Name + Last Name + Email
-        await recruitmentPage.kiemTraBaoLoiBatBuoc(3);
+        await recruitmentPage.kiemTraBaoLoiBatBuoc(SO_TRUONG_BAT_BUOC_CANDIDATE);
         await recruitmentPage.kiemTraTruongBaoBatBuoc('Email');
         // Vẫn ở form thêm mới, chưa sinh ra bản ghi (URL chưa có /<id>)
         await expect(page).toHaveURL(/recruitment\/addCandidate$/);

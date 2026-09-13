@@ -1,7 +1,11 @@
 import { test, expect } from '@playwright/test';
 
 import { VacancyPage } from '../../pages/VacancyPage.js';
-import { taoDuLieuVacancy } from '../../utils/testData.js';
+import {
+    taoDuLieuVacancy,
+    SO_TRUONG_BAT_BUOC_VACANCY,
+    CAC_TRUONG_BAT_BUOC_VACANCY,
+} from '../data/vacancies.data.js';
 import { dungLai } from '../../utils/quanSat.js';
 
 /**
@@ -59,10 +63,10 @@ test.describe('Recruitment - Vacancies', () => {
         await vacancyPage.moFormThemVacancy();
         await vacancyPage.bamNutLuu();
 
-        await vacancyPage.kiemTraBaoLoiBatBuoc(3);
-        await vacancyPage.kiemTraTruongBaoBatBuoc('Vacancy Name');
-        await vacancyPage.kiemTraTruongBaoBatBuoc('Job Title');
-        await vacancyPage.kiemTraTruongBaoBatBuoc('Hiring Manager');
+        await vacancyPage.kiemTraBaoLoiBatBuoc(SO_TRUONG_BAT_BUOC_VACANCY);
+        for (const nhan of CAC_TRUONG_BAT_BUOC_VACANCY) {
+            await vacancyPage.kiemTraTruongBaoBatBuoc(nhan);
+        }
         await expect(page).toHaveURL(/recruitment\/addJobVacancy$/);
 
         await dungLai(page, 3);

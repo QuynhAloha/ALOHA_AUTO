@@ -1,6 +1,7 @@
 import { test } from '@playwright/test';
 
 import { AdminPage } from '../../pages/AdminPage.js';
+import { VAI_TRO_CAN_SEARCH } from '../data/admin.data.js';
 import { dungLai } from '../../utils/quanSat.js';
 
 /**
@@ -36,9 +37,9 @@ test.describe('Admin - User Management', () => {
     });
 
     test('Search theo User Role "ESS" -> mọi dòng đều là ESS', async ({ page }) => {
-        await adminPage.timTheoUserRole('ESS');
+        await adminPage.timTheoUserRole(VAI_TRO_CAN_SEARCH);
 
-        await adminPage.kiemTraKetQuaDungUserRole('ESS');
+        await adminPage.kiemTraKetQuaDungUserRole(VAI_TRO_CAN_SEARCH);
 
         await dungLai(page, 3);
     });

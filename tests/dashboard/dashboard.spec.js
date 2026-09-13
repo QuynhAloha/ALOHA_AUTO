@@ -3,7 +3,7 @@ import { test } from '@playwright/test';
 import { DashboardPage } from '../../pages/DashboardPage.js';
 import { AdminPage } from '../../pages/AdminPage.js';
 import { RecruitmentPage } from '../../pages/RecruitmentPage.js';
-import { CAC_MODULE_MENU_TRAI } from '../../utils/testData.js';
+import { CAC_MODULE_MENU_TRAI } from '../data/dashboard.data.js';
 import { dungLai } from '../../utils/quanSat.js';
 
 /**

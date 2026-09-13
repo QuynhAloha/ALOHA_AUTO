@@ -1,36 +1,20 @@
 /**
- * Sinh dữ liệu test duy nhất để các lần chạy không đụng nhau
- * (OrangeHRM demo là môi trường dùng chung).
+ * Tiện ích và cấu hình dùng CHUNG cho mọi test.
+ *
+ * Dữ liệu riêng của từng page nằm ở tests/data/<page>.data.js
+ * (login.data.js, dashboard.data.js, admin.data.js, candidates.data.js,
+ * vacancies.data.js).
  */
-function dauThoiGian() {
-    // Thêm 3 số ngẫu nhiên: các test chạy song song có thể gọi Date.now()
-    // trong cùng 1 mili-giây -> trùng tên -> search ra nhầm bản ghi.
+
+/**
+ * Sinh mã duy nhất cho dữ liệu test.
+ *
+ * OrangeHRM demo là môi trường dùng chung nên dữ liệu phải unique.
+ * Thêm 3 số ngẫu nhiên vì các test chạy song song có thể gọi Date.now()
+ * trong cùng 1 mili-giây -> trùng tên -> search ra nhầm bản ghi.
+ */
+export function dauThoiGian() {
     return `${Date.now()}${Math.floor(Math.random() * 1000).toString().padStart(3, '0')}`;
-}
-
-export function taoDuLieuUngVien() {
-    const id = dauThoiGian();
-    return {
-        firstName: 'AutoQA',
-        lastName: `Cand${id}`,
-        email: `autoqa.cand.${id}@example.com`,
-        contactNumber: '0900000000',
-        keywords: 'automation, playwright',
-        get hoTen() {
-            return `${this.firstName} ${this.lastName}`;
-        },
-    };
-}
-
-export function taoDuLieuVacancy() {
-    const id = dauThoiGian();
-    return {
-        vacancyName: `AUTO_QA_Vacancy_${id}`,
-        jobTitle: 'QA Engineer',
-        description: 'Vacancy được tạo tự động bởi Playwright',
-        hiringManagerHint: 'a',
-        numberOfPositions: 2,
-    };
 }
 
 /**
@@ -42,19 +26,3 @@ export const FILE_PHIEN_ADMIN = 'playwright/.auth/admin.json';
 
 // Phiên trống: dùng cho test cần bắt đầu từ trạng thái CHƯA đăng nhập
 export const PHIEN_TRONG = { cookies: [], origins: [] };
-
-// ----- Menu trái -----
-
-// Các module bắt buộc phải có trong menu trái sau khi đăng nhập
-export const CAC_MODULE_MENU_TRAI = [
-    'Admin',
-    'PIM',
-    'Leave',
-    'Time',
-    'Recruitment',
-    'My Info',
-    'Performance',
-    'Dashboard',
-    'Directory',
-    'Maintenance',
-];

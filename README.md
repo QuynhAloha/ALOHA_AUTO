@@ -12,7 +12,8 @@ Automation UI testing cho **OrangeHRM Demo** bằng [Playwright](https://playwri
 ```
 pages/                      Page Objects (BasePage + các page kế thừa)
 tests/
-├── data/                   Dữ liệu test tách riêng theo page (login.data.js...)
+├── data/                   Dữ liệu test tách riêng theo page:
+│                           login · dashboard · admin · candidates · vacancies
 ├── setup/auth.setup.js     Đăng nhập Admin 1 lần, lưu phiên cho mọi test dùng lại
 ├── auth/                   Login: đúng · sai mật khẩu · bỏ trống · đăng xuất
 ├── dashboard/              Dashboard: breadcrumb · menu trái · điều hướng sang module
@@ -25,7 +26,7 @@ utils/                      Test data generator, chế độ quan sát
 docs/                       Tài liệu phạm vi automation
 ```
 
-**Nguyên tắc:** mỗi Page Object có đúng một file test tương ứng, mỗi test độc lập và chỉ kiểm 1 mục đích. Flow dài xuyên module chỉ giữ ở `e2e/`. Dữ liệu test không hardcode trong file test: data riêng của từng page nằm ở `tests/data/<page>.data.js`, còn data dùng chung (sinh ứng viên/vacancy, cấu hình phiên đăng nhập, danh sách module) nằm ở `utils/testData.js`.
+**Nguyên tắc:** mỗi Page Object có đúng một file test tương ứng, mỗi test độc lập và chỉ kiểm 1 mục đích. Flow dài xuyên module chỉ giữ ở `e2e/`. Dữ liệu test không hardcode trong file test: data của từng page nằm ở `tests/data/<page>.data.js`, còn `utils/testData.js` chỉ giữ tiện ích dùng chung (sinh mã unique, cấu hình phiên đăng nhập).
 
 | Page Object | File test |
 |---|---|
@@ -35,6 +36,16 @@ docs/                       Tài liệu phạm vi automation
 | `RecruitmentPage.js` | `tests/recruitment/candidates.spec.js` |
 | `VacancyPage.js` | `tests/recruitment/vacancies.spec.js` |
 | `BasePage.js` | *(class cha, test gián tiếp qua mọi page con)* |
+
+Mỗi page có 1 file test và 1 file data đi kèm:
+
+| Page | File test | File data |
+|---|---|---|
+| Login | `tests/auth/login.spec.js` | `tests/data/login.data.js` |
+| Dashboard | `tests/dashboard/dashboard.spec.js` | `tests/data/dashboard.data.js` |
+| Admin | `tests/admin/users.spec.js` | `tests/data/admin.data.js` |
+| Candidates | `tests/recruitment/candidates.spec.js` | `tests/data/candidates.data.js` |
+| Vacancies | `tests/recruitment/vacancies.spec.js` | `tests/data/vacancies.data.js` |
 
 | Page Object | Vai trò |
 |---|---|
