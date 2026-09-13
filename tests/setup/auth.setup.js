@@ -2,7 +2,8 @@ import { test as setup } from '@playwright/test';
 
 import { LoginPage } from '../../pages/LoginPage.js';
 import { DashboardPage } from '../../pages/DashboardPage.js';
-import { TAI_KHOAN_ADMIN, FILE_PHIEN_ADMIN } from '../../utils/testData.js';
+import { TAI_KHOAN_ADMIN } from '../data/login.data.js';
+import { FILE_PHIEN_ADMIN } from '../../utils/testData.js';
 
 /**
  * Chạy 1 lần duy nhất ở đầu mỗi lần `playwright test` (project 'setup').

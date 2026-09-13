@@ -5,7 +5,8 @@ import { DashboardPage } from '../../pages/DashboardPage.js';
 import { RecruitmentPage } from '../../pages/RecruitmentPage.js';
 import { VacancyPage } from '../../pages/VacancyPage.js';
 import { AdminPage } from '../../pages/AdminPage.js';
-import { taoDuLieuUngVien, taoDuLieuVacancy, TAI_KHOAN_ADMIN, PHIEN_TRONG } from '../../utils/testData.js';
+import { taoDuLieuUngVien, taoDuLieuVacancy, PHIEN_TRONG } from '../../utils/testData.js';
+import { TAI_KHOAN_ADMIN } from '../data/login.data.js';
 import { dungLai } from '../../utils/quanSat.js';
 
 /**

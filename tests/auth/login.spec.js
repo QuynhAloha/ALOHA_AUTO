@@ -7,8 +7,8 @@ import {
     TAI_KHOAN_SAI_MAT_KHAU,
     TAI_KHOAN_TRONG,
     SO_TRUONG_BAT_BUOC_LOGIN,
-    PHIEN_TRONG,
-} from '../../utils/testData.js';
+} from '../data/login.data.js';
+import { PHIEN_TRONG } from '../../utils/testData.js';
 import { dungLai } from '../../utils/quanSat.js';
 
 // File này test chính việc đăng nhập -> KHÔNG dùng phiên lưu sẵn

@@ -12,6 +12,7 @@ Automation UI testing cho **OrangeHRM Demo** bằng [Playwright](https://playwri
 ```
 pages/                      Page Objects (BasePage + các page kế thừa)
 tests/
+├── data/                   Dữ liệu test tách riêng theo page (login.data.js...)
 ├── setup/auth.setup.js     Đăng nhập Admin 1 lần, lưu phiên cho mọi test dùng lại
 ├── auth/                   Login: đúng · sai mật khẩu · bỏ trống · đăng xuất
 ├── dashboard/              Dashboard: breadcrumb · menu trái · điều hướng sang module
@@ -24,7 +25,7 @@ utils/                      Test data generator, chế độ quan sát
 docs/                       Tài liệu phạm vi automation
 ```
 
-**Nguyên tắc:** mỗi Page Object có đúng một file test tương ứng, mỗi test độc lập và chỉ kiểm 1 mục đích. Flow dài xuyên module chỉ giữ ở `e2e/`. Dữ liệu test (tài khoản, danh sách module, dữ liệu sinh tự động) nằm tập trung ở `utils/testData.js`, không hardcode trong file test.
+**Nguyên tắc:** mỗi Page Object có đúng một file test tương ứng, mỗi test độc lập và chỉ kiểm 1 mục đích. Flow dài xuyên module chỉ giữ ở `e2e/`. Dữ liệu test không hardcode trong file test: data riêng của từng page nằm ở `tests/data/<page>.data.js`, còn data dùng chung (sinh ứng viên/vacancy, cấu hình phiên đăng nhập, danh sách module) nằm ở `utils/testData.js`.
 
 | Page Object | File test |
 |---|---|
